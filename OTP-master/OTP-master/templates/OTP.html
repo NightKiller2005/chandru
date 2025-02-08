@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Center the form on the page */
+        .otp-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+        }
+        /* Style the input to make sure it accepts only 4 characters */
+        .otp-input {
+            width: 300px;
+            text-align: center;
+            letter-spacing: 10px;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        /* Center the form elements */
+        .form-group {
+            text-align: center;
+        }
+        /* Add some spacing and style to the heading */
+        .otp-heading {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #343a40;
+        }
+    </style>
+</head>
+<body>
+    <div class="container otp-container">
+        <div class="text-center">
+            <h2 class="otp-heading">Verify OTP</h2>
+            <form action="/verify_otp" method="POST">
+                <label for="otp">Enter OTP:</label>
+                <input type="text" id="otp" name="otp" required>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Queue Detection System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Custom CSS */
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            padding: 0;
+            margin: 0;
+        }
+        .container-wrapper {
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .Logo img {
+            width: 130px;
+        }
+        .nav a {
+            color: #333;
+            font-weight: bold;
+            margin-right: 20px;
+            border-radius: 20px;
+            padding: 8px 20px;
+            transition: background-color 0.3s;
+        }
+        .nav a:hover {
+            background-color: rgba(144, 238, 236, 0.549);
+        }
+        .nav .btn-danger {
+            background-color: transparent;
+            border: 2px solid #dc3545;
+            color: #dc3545;
+            border-radius: 20px;
+            padding: 8px 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .nav .btn-danger:hover {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        .dropdown-menu a {
+            color: black;
+        }
+        .footer {
+            background: linear-gradient(45deg, #ff6b6b, #ffdd99, #91f291, #6b8cff);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        .footer a:hover {
+            color: #007bff;
+        }
+        .social-icons {
+            margin-top: 20px;
+        }
+        .social-icon {
+            color: #fff;
+            font-size: 24px;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        .social-icon:hover {
+            color: #007bff;
+        }
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        .signup-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+            margin-top: 100px;
+        }
+        .signup-form h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .signup-form input[type="text"],
+        .signup-form input[type="tel"],
+        .signup-form input[type="email"],
+        .signup-form input[type="number"],
+        .signup-form input[type="date"],
+        .signup-form input[type="file"],
+        .signup-form input[type="password"],
+        .signup-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+        }
+        .signup-form input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .signup-form input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .profile-icon {
+            position: relative;
+            cursor: pointer;
+        }
+        .logout-menu {
+            position: absolute;
+            top: 105%;
+            right: 0;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 1000;
+        }
+        .logout-menu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            transition: background-color 0.3s;
+        }
+        .logout-menu a:hover {
+            background-color: #f0f0f0;
+        }
+
+        #logout-link{
+            text-decoration: none;
+        }
+
+        .nav-item:hover
+        {
+            background-color: rgba(128, 128, 128, 0.137)
+            
+        }
+
+        #logoutButton
+        {
+            margin-top:20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">BrandName</a>
+        </div>
+    </nav>
+  
+
+    <div class="signup-form">
+        <h2>Sign Up</h2>
+        {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endif %}
+    {% if success %}
+    <div class="alert alert-success" role="alert">
+        {{ success }}
+    </div>
+    {% endif %}
+    {% if server_error %}
+    <div class="alert alert-danger" role="alert">
+        {{ server_error }}
+    </div>
+    {% endif %}
+            
+    <form action="/signup" method="POST" onsubmit="return validateForm()">
+        <!-- Other form fields -->
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" id="email" placeholder="Email" required>
+        <input type="password" name="password" id="password" placeholder="Password" required>
+        <input type="submit" value="Sign Up">
+    </form>
+    
+        </div>
+    
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p>&copy; 2024 Zero Bugs. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap Bundle with Popper (JS) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
